@@ -84,6 +84,26 @@ class ArvoreBinaria{
             cout<<"\n";
         }
 
+        
+        Tipo max(No<Tipo> *inicio){
+            No<Tipo> *atual = inicio; *max = inicio;
+            while(atual!=0){
+                max = atual;
+                atual = atual->direita;            
+            }
+            return max->valor;
+        }
+
+
+        Tipo min(No<Tipo> *inicio){
+            No<Tipo> *atual = inicio; *min = inicio;
+            while(atual!=0){
+                min = atual;
+                atual = atual->direita;            
+            }
+            return min->valor; 
+        }
+
 
 };
 
