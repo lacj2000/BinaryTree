@@ -86,22 +86,22 @@ class ArvoreBinaria{
 
         
         Tipo max(No<Tipo> *inicio){
-            No<Tipo> *atual = inicio; *max = inicio;
+            No<Tipo> *atual = inicio, *elementoMax = 0;
             while(atual!=0){
-                max = atual;
+                elementoMax = atual;
                 atual = atual->direita;            
             }
-            return max->valor;
+            return elementoMax->valor;
         }
 
 
         Tipo min(No<Tipo> *inicio){
-            No<Tipo> *atual = inicio; *min = inicio;
+            No<Tipo> *atual = inicio, *elementoMin = inicio;
             while(atual!=0){
-                min = atual;
-                atual = atual->direita;            
+                elementoMin = atual;
+                atual = atual->esquerda;            
             }
-            return min->valor; 
+            return elementoMin->valor; 
         }
 
 
