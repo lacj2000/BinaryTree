@@ -70,17 +70,31 @@ class ArvoreBinaria{
             No<Tipo> *atual = no;
             if (atual != 0){
                 emOrdem(atual->esquerda);
-                cout<<atual->valor<<" ";
-                //this->visitar(atual);
+                this->visitar(atual);
                 emOrdem(atual->direita);
             }
-            return;
+        }
+
+
+        void preOrdem(No<Tipo> *no){
+            No<Tipo> *atual = no;
+            if (atual != 0){
+                this->visitar(atual);
+                preOrdem(atual->esquerda);
+                preOrdem(atual->direita);
+            }     
         }
 
 
         void vizualizarEmOrdem(){
             cout<<"Em Order: ";
             emOrdem(this->raiz);
+            cout<<"\n";
+        }
+
+        void vizualizarPreOrdem(){
+            cout<<"Pre Order: ";
+            preOrdem(this->raiz);
             cout<<"\n";
         }
 
@@ -104,6 +118,10 @@ class ArvoreBinaria{
             return elementoMin->valor; 
         }
 
+        void excluir(){
+
+
+        }
 
 };
 
