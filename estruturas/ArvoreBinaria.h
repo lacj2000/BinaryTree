@@ -135,8 +135,48 @@ class ArvoreBinaria{
             return elementoMin->valor; 
         }
 
-        void excluir(){
+        void excluir (Tipo elemento){
+            excluirElemento(elemento, this->raiz, 0);
+        }
 
+        No<Tipo> excluirElemento(Tipo elemento, No<Tipo> *atual, No<Tipo> *anterior = 0){
+            if(atual!=0){
+                if (elemento==atual->valor){
+                    // 2
+                    if(atual->esquerda != 0 && atual->direita != 0){
+                        cout<<"-2-";
+                    }
+                    // 1 dir
+                    else if(atual->direita != 0){
+                        cout<<"1-";
+                    }
+                    // 1 esq
+                    else if(atual->esquerda != 0){
+                        cout<<"-1";
+                    }
+                    // 0 -ok 
+                    else{
+                        if (atual = this->raiz){
+                            this->raiz = 0;    
+                        }else{    
+                            if(anterior->valor < atual->valor){
+                                anterior->direita = 0;
+                            }else{
+                                anterior->esquerda = 0;
+                            }
+                        }
+                    }
+
+
+
+                }
+                else if(elemento < atual->valor){
+                    excluirElemento(elemento, atual->esquerda, atual);
+                }
+                else{
+                    excluirElemento(elemento, atual->direita, atual);
+                }
+            }
 
         }
 
