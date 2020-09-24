@@ -20,7 +20,6 @@ int main(){
     a1->inserir(77);
     a1->inserir(82);
 
-    a1->vizualizarPreOrdem();
     a1->vizualizarEmOrdem();
 
     cout<<"max: "<<a1->max(a1->raiz)<<"\n";

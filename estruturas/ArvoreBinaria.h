@@ -86,15 +86,32 @@ class ArvoreBinaria{
         }
 
 
+        void posOrdem(No<Tipo> *no){
+            No<Tipo> *atual = no;
+            if (atual != 0){
+                posOrdem(atual->esquerda);
+                posOrdem(atual->direita);
+                this->visitar(atual);
+            }     
+        }
+
+
+
         void vizualizarEmOrdem(){
-            cout<<"Em Order: ";
+            cout<<"Em Ordem: ";
             emOrdem(this->raiz);
             cout<<"\n";
         }
 
         void vizualizarPreOrdem(){
-            cout<<"Pre Order: ";
+            cout<<"Pre Ordem: ";
             preOrdem(this->raiz);
+            cout<<"\n";
+        }
+
+        void vizualizarPosOrdem(){
+            cout<<"Pos Ordem: ";
+            posOrdem(this->raiz);
             cout<<"\n";
         }
 
