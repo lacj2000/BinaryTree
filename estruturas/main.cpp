@@ -25,7 +25,7 @@ int main(){
     cout<<"max: "<<a1->max(a1->raiz)<<"\n";
     cout<<"min: "<<a1->min(a1->raiz)<<"\n";
 
-    a1->excluir(11);
-
+    a1->excluirFusao(16);
+    
     a1->vizualizarEmOrdem();
 }

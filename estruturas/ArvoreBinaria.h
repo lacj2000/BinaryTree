@@ -99,19 +99,28 @@ class ArvoreBinaria{
 
         void vizualizarEmOrdem(){
             cout<<"Em Ordem: ";
-            emOrdem(this->raiz);
+            if(this->raiz)
+                emOrdem(this->raiz);
+            else 
+                cout<<"vazio";
             cout<<"\n";
         }
 
         void vizualizarPreOrdem(){
             cout<<"Pre Ordem: ";
+            if(this->raiz)
             preOrdem(this->raiz);
+            else 
+                cout<<"vazio";
             cout<<"\n";
         }
 
         void vizualizarPosOrdem(){
             cout<<"Pos Ordem: ";
+            if(this->raiz)
             posOrdem(this->raiz);
+            else 
+                cout<<"vazio";
             cout<<"\n";
         }
 
@@ -135,31 +144,139 @@ class ArvoreBinaria{
             return elementoMin->valor; 
         }
 
-        void excluir (Tipo elemento){
-            excluirElemento(elemento, this->raiz, 0);
+        void excluirFusao (Tipo elemento){
+            excluirElementoFusao(elemento, this->raiz);
         }
 
-        No<Tipo> excluirElemento(Tipo elemento, No<Tipo> *atual, No<Tipo> *anterior = 0){
+        void excluirCopia (Tipo elemento){
+            excluirElementoCopia(elemento, this->raiz, 0);
+        }
+
+        void excluirSimples (Tipo elemento){
+            excluirElementoSimples(elemento, this->raiz, 0);
+        }
+
+        No<Tipo> excluirElementoSimples(Tipo elemento, No<Tipo> *atual, No<Tipo> *anterior = 0){
             if(atual!=0){
                 if (elemento==atual->valor){
+                    if (atual == this->raiz){
+                        this->raiz = 0;    
+                    }else{    
+                        if(anterior->valor <= atual->valor){
+                            anterior->direita = 0;
+                        }else{
+                            anterior->esquerda = 0;
+                        }
+                    }
+                }
+
+                else if(elemento < atual->valor){
+                    excluirElementoSimples(elemento, atual->esquerda, atual);
+                }
+                else{
+                    excluirElementoSimples(elemento, atual->direita, atual);
+                }
+            }
+
+        }
+
+        void excluirElementoFusao(Tipo elemento, No<Tipo> *raiz){
+            if (raiz==0){
+                cout<<"vazio";
+            }else{
+                No<Tipo> *atual, *anterior, *auxiliar;
+                atual = raiz;
+                while(1){
+                    if (atual->valor==elemento){
+                        cout<<"axouuu\n";
+                        if(atual->esquerda && atual->direita){
+                            auxiliar = atual->direita;
+                            if (anterior->valor > atual->valor){
+                                anterior->esquerda = atual->esquerda;
+                            }else anterior->direita = atual->esquerda;
+                            atual = atual->esquerda;
+                            while(1){
+                                if(atual == 0){
+                                    if (anterior->valor>auxiliar->valor){
+                                        anterior->esquerda = auxiliar;
+                                    }else anterior->direita = auxiliar;
+                                    break;
+                                }else anterior = atual;
+                                if(atual->valor<auxiliar->valor){
+                                    atual = atual->direita;
+                                }else atual = atual->direita;
+                            }
+
+
+                        }else if (atual->direita){
+                            if (anterior->valor > atual->valor){
+                                anterior->esquerda = atual->direita;
+                            }else anterior->direita = atual->direita; 
+                        }else if (atual->esquerda){
+                            if (anterior->valor > atual->valor){
+                                anterior->esquerda = atual->esquerda;
+                            }else anterior->direita = atual->esquerda; 
+                        }else{
+                            if (anterior->valor > atual->valor){
+                                anterior->esquerda = 0;
+                            }else anterior->direita = 0;    
+                        }    
+                        break;
+                    }else if(atual!=0){
+                        anterior = atual;
+                        if(atual->valor>elemento){
+                            atual = atual->esquerda;
+                        }
+                        else if(atual->valor < elemento){
+                            atual = atual->direita;
+                        }   
+                    }else break;    
+
+                }
+
+
+
+            }
+        
+        }
+
+        No<Tipo> excluirElementoCopia(Tipo elemento, No<Tipo> *atual, No<Tipo> *anterior = 0){
+            if(atual!=0){
+                if (elemento==atual->valor){
+                    cout<<"excluindo: "<<elemento<<"  ";
                     // 2
                     if(atual->esquerda != 0 && atual->direita != 0){
-                        cout<<"-2-";
+                        cout<<"-2-\n";
+                        Tipo valor = min(atual->direita);
+                        atual->valor = valor;
+                        excluirElementoCopia(valor, atual->direita, atual);
                     }
                     // 1 dir
                     else if(atual->direita != 0){
-                        cout<<"1-";
+                        cout<<"1-\n";
+                        if (atual->valor < anterior->valor){
+                            anterior->esquerda = atual->direita;
+                        }else{
+                            anterior->direita = atual->direita;
+                        }
                     }
                     // 1 esq
                     else if(atual->esquerda != 0){
-                        cout<<"-1";
+                        cout<<"-1\n";
+                        if (atual->valor < anterior->valor){
+                            anterior->esquerda = atual->esquerda;
+                        }else{
+                            anterior->direita = atual->esquerda;
+                        }
+
                     }
                     // 0 -ok 
                     else{
-                        if (atual = this->raiz){
+                        cout<<"-0-\n";
+                        if (atual == this->raiz){
                             this->raiz = 0;    
                         }else{    
-                            if(anterior->valor < atual->valor){
+                            if(anterior->valor <= atual->valor){
                                 anterior->direita = 0;
                             }else{
                                 anterior->esquerda = 0;
@@ -171,10 +288,10 @@ class ArvoreBinaria{
 
                 }
                 else if(elemento < atual->valor){
-                    excluirElemento(elemento, atual->esquerda, atual);
+                    excluirElementoCopia(elemento, atual->esquerda, atual);
                 }
                 else{
-                    excluirElemento(elemento, atual->direita, atual);
+                    excluirElementoCopia(elemento, atual->direita, atual);
                 }
             }
 
@@ -183,3 +300,4 @@ class ArvoreBinaria{
 };
 
 
+    
