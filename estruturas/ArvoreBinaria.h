@@ -188,7 +188,6 @@ class ArvoreBinaria{
                 atual = raiz;
                 while(1){
                     if (atual->valor==elemento){
-                        cout<<"axouuu\n";
                         if(atual->esquerda && atual->direita){
                             auxiliar = atual->direita;
                             if (anterior->valor > atual->valor){
